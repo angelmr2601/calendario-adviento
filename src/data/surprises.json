@@ -1,0 +1,224 @@
+[
+  {
+    "day": 1,
+    "type": "letter",
+    "title": "Empieza nuestra 4 Navidad ❤️",
+    "message": "Hoy empieza un diciembre especial. Durante 24 días quiero recordarte lo importante que eres para mí. Espero que cada sorpresa te haga sonreír tanto como tú me haces sonreír a mí.",
+    "emoji": "💌",
+    "options": []
+  },
+  {
+    "day": 2,
+    "type": "photo",
+    "emoji": "📸",
+    "title": "Nuestro primer recuerdo",
+    "message": "Hay momentos que nunca se olvidan. Este es uno de ellos.",
+    "image": "/memories/dia-2.jpg"
+  },
+  {
+    "day": 3,
+    "type": "quiz",
+    "emoji": "🎮",
+    "title": "¿Cuánto me conoces?",
+    "message": "Primera prueba del calendario.",
+    "question": "¿Cuál sería mi plan perfecto contigo?",
+    "options": [
+      "Una tarde de películas",
+      "Una escapada sorpresa",
+      "Salir a cenar"
+    ],
+    "correctAnswer": 1,
+    "reward": "¡Premio! Un beso enorme ❤️"
+  },
+  {
+    "day": 4,
+    "type": "voucher",
+    "emoji": "🎁",
+    "title": "Vale por un masaje",
+    "message": "Porque te mereces descansar y que te mimen.",
+    "reward": "Un masaje de 30 minutos"
+  },
+  {
+    "day": 5,
+    "type": "letter",
+    "emoji": "💌",
+    "title": "Cinco cosas que adoro de ti",
+    "message": "Tu sonrisa, tu forma de mirarme, cómo me haces reír, tu cariño y lo feliz que soy cuando estamos juntos."
+  },
+  {
+    "day": 6,
+    "type": "photo",
+    "emoji": "📸",
+    "title": "Nuestra aventura",
+    "message": "Contigo, hasta el viaje más sencillo se convierte en una aventura.",
+    "image": "/memories/dia-6.jpg"
+  },
+  {
+    "day": 7,
+    "type": "quiz",
+    "emoji": "🎮",
+    "title": "Un recuerdo especial",
+    "message": "¿Cuánto recuerdas de nosotros?",
+    "question": "¿Qué recuerdo elegiríamos repetir?",
+    "options": [
+      "Nuestra primera cita",
+      "Nuestro primer viaje",
+      "Una tarde improvisada"
+    ],
+    "correctAnswer": 1,
+    "reward": "¡Tenemos que repetirlo! ❤️"
+  },
+  {
+    "day": 8,
+    "type": "special",
+    "title": "Nuestra canción",
+    "message": "Hay canciones que siempre me recuerdan a ti.",
+    "emoji": "🎵",
+    "options": [],
+    "songUrl": "https://open.spotify.com/intl-es/track/2cHheqOmWwQ6mxoov4ITUP?si=1ea7112c5f4f4aa3"
+  },
+  {
+    "day": 9,
+    "type": "letter",
+    "emoji": "💌",
+    "title": "Lo que haces por mí",
+    "message": "A veces no te digo lo suficiente cuánto agradezco tenerte a mi lado. Gracias por acompañarme, escucharme y hacer mis días mejores."
+  },
+  {
+    "day": 10,
+    "type": "voucher",
+    "emoji": "🎁",
+    "title": "Una cita sorpresa",
+    "message": "Esta vez me encargo yo de organizarlo todo.",
+    "reward": "Una cita romántica sorpresa"
+  },
+  {
+    "day": 11,
+    "type": "photo",
+    "emoji": "📸",
+    "title": "Un día inolvidable",
+    "message": "Hay días que me gustaría guardar para siempre.",
+    "image": "/memories/dia-11.jpg"
+  },
+  {
+    "day": 12,
+    "type": "quiz",
+    "emoji": "🎮",
+    "title": "Nuestro pequeño quiz",
+    "message": "Vamos con otra pregunta.",
+    "question": "¿Qué es lo que más me gusta de nosotros?",
+    "options": [
+      "Nuestras conversaciones",
+      "Nuestros viajes",
+      "Todos los momentos juntos"
+    ],
+    "correctAnswer": 2,
+    "reward": "¡Exactamente! ❤️"
+  },
+  {
+    "day": 13,
+    "type": "letter",
+    "emoji": "💌",
+    "title": "Gracias por...",
+    "message": "Gracias por ser tú, por cada abrazo, por cada risa y por todos esos pequeños detalles que hacen nuestra relación especial."
+  },
+  {
+    "day": 14,
+    "type": "photo",
+    "emoji": "📸",
+    "title": "Nuestro viaje favorito",
+    "message": "Ojalá nos queden muchísimos destinos por descubrir.",
+    "image": "/memories/dia-14.jpg"
+  },
+  {
+    "day": 15,
+    "type": "voucher",
+    "emoji": "🎁",
+    "title": "Hoy eliges tú",
+    "message": "Sin discusiones sobre qué película ver o dónde comer.",
+    "reward": "Un plan entero elegido por ti"
+  },
+  {
+    "day": 16,
+    "type": "quiz",
+    "emoji": "🎮",
+    "title": "Tres pistas",
+    "message": "Adivina de qué momento estoy hablando.",
+    "question": "¿Qué recuerdo nuestro fue una aventura inesperada?",
+    "options": [
+      "Un viaje",
+      "Una sorpresa",
+      "Un plan improvisado"
+    ],
+    "correctAnswer": 2,
+    "reward": "¡Otro recuerdo para nuestra colección!"
+  },
+  {
+    "day": 17,
+    "type": "letter",
+    "emoji": "💌",
+    "title": "Nuestro futuro",
+    "message": "No sé todas las aventuras que nos esperan, pero sí sé que quiero seguir compartiendo muchísimas contigo."
+  },
+  {
+    "day": 18,
+    "type": "photo",
+    "emoji": "📸",
+    "title": "Mi foto favorita",
+    "message": "Una fotografía que siempre consigue sacarme una sonrisa.",
+    "image": "/memories/dia-18.jpg"
+  },
+  {
+    "day": 19,
+    "type": "voucher",
+    "emoji": "🎁",
+    "title": "Una cena especial",
+    "message": "Una noche para disfrutar sin prisas.",
+    "reward": "Una cena romántica juntos"
+  },
+  {
+    "day": 20,
+    "type": "quiz",
+    "emoji": "🎮",
+    "title": "¿Cuánto sabes de nosotros?",
+    "message": "Último juego del calendario.",
+    "question": "¿Cuál es nuestro mejor plan?",
+    "options": [
+      "Viajar",
+      "Quedarnos en casa",
+      "Cualquier plan si estamos juntos"
+    ],
+    "correctAnswer": 2,
+    "reward": "¡Respuesta perfecta! ❤️"
+  },
+  {
+    "day": 21,
+    "type": "photo",
+    "emoji": "📸",
+    "title": "Nuestro momento divertido",
+    "message": "Porque contigo nunca faltan las risas.",
+    "image": "/memories/dia-21.jpg"
+  },
+  {
+    "day": 22,
+    "type": "letter",
+    "emoji": "💌",
+    "title": "Mi promesa para ti",
+    "message": "Prometo seguir cuidando de nosotros, buscando motivos para reír y construyendo recuerdos bonitos a tu lado."
+  },
+  {
+    "day": 23,
+    "type": "voucher",
+    "emoji": "🎁",
+    "title": "Un regalo misterioso",
+    "message": "Este vale guarda una sorpresa que descubrirás muy pronto.",
+    "reward": "Un regalo sorpresa"
+  },
+  {
+    "day": 24,
+    "type": "special",
+    "emoji": "🎄",
+    "title": "Feliz Navidad, mi amor ❤️",
+    "message": "Llegamos al último día, pero esto no termina aquí. Gracias por formar parte de mi vida y por hacer que cada Navidad contigo sea especial. Te quiero muchísimo."
+  }
+]

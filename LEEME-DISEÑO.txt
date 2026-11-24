@@ -1,0 +1,8 @@
+NUEVO DISEÑO NAVIDEÑO + SUPABASE (versión 3)
+
+1. Copia el contenido de esta carpeta sobre tu proyecto (acepta sobrescribir).
+   No toca surprises.json, private/, public/.
+2. En la raíz del proyecto ejecuta:  npm install
+3. Para conectar Supabase sigue LEEME-SUPABASE.md (SQL + 2 variables + npm run importar).
+   Sin variables de entorno la web funciona igual que antes.
+4. npm run dev  y abre  http://localhost:3000/?preview=true  para ver todas las puertas.

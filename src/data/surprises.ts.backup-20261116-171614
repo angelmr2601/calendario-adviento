@@ -1,0 +1,43 @@
+export type SurpriseType = "letter" | "photo" | "quiz" | "voucher" | "special";
+
+export type Surprise = {
+  day: number;
+  type: SurpriseType;
+  title: string;
+  message: string;
+  emoji: string;
+  image?: string;
+  question?: string;
+  options?: string[];
+  correctAnswer?: number;
+  reward?: string;
+  songUrl?: string;
+};
+
+// Contenido de ejemplo: personaliza las preguntas, fotos y textos antes de publicar.
+export const surprises: Surprise[] = [
+  { day: 1, type: "letter", emoji: "ðŸ’Œ", title: "Empieza nuestra Navidad â¤ï¸", message: "Hoy empieza un diciembre especial. Durante 24 dÃ­as quiero recordarte lo importante que eres para mÃ­. Espero que cada sorpresa te haga sonreÃ­r tanto como tÃº me haces sonreÃ­r a mÃ­." },
+  { day: 2, type: "photo", emoji: "ðŸ“¸", title: "Nuestro primer recuerdo", message: "Hay momentos que nunca se olvidan. Este es uno de ellos.", image: "/memories/dia-2.jpg" },
+  { day: 3, type: "quiz", emoji: "ðŸŽ®", title: "Â¿CuÃ¡nto me conoces?", message: "Primera prueba del calendario.", question: "Â¿CuÃ¡l serÃ­a mi plan perfecto contigo?", options: ["Una tarde de pelÃ­culas", "Una escapada sorpresa", "Salir a cenar"], correctAnswer: 1, reward: "Â¡Premio! Un beso enorme â¤ï¸" },
+  { day: 4, type: "voucher", emoji: "ðŸŽ", title: "Vale por un masaje", message: "Porque te mereces descansar y que te mimen.", reward: "Un masaje de 30 minutos" },
+  { day: 5, type: "letter", emoji: "ðŸ’Œ", title: "Cinco cosas que adoro de ti", message: "Tu sonrisa, tu forma de mirarme, cÃ³mo me haces reÃ­r, tu cariÃ±o y lo feliz que soy cuando estamos juntos." },
+  { day: 6, type: "photo", emoji: "ðŸ“¸", title: "Nuestra aventura", message: "Contigo, hasta el viaje mÃ¡s sencillo se convierte en una aventura.", image: "/memories/dia-6.jpg" },
+  { day: 7, type: "quiz", emoji: "ðŸŽ®", title: "Un recuerdo especial", message: "Â¿CuÃ¡nto recuerdas de nosotros?", question: "Â¿QuÃ© recuerdo elegirÃ­amos repetir?", options: ["Nuestra primera cita", "Nuestro primer viaje", "Una tarde improvisada"], correctAnswer: 1, reward: "Â¡Tenemos que repetirlo! â¤ï¸" },
+  { day: 8, type: "special", emoji: "ðŸŽµ", title: "Nuestra canciÃ³n", message: "Hay canciones que siempre me recuerdan a ti. Pronto pondrÃ© aquÃ­ la nuestra.", songUrl: "" },
+  { day: 9, type: "letter", emoji: "ðŸ’Œ", title: "Lo que haces por mÃ­", message: "A veces no te digo lo suficiente cuÃ¡nto agradezco tenerte a mi lado. Gracias por acompaÃ±arme, escucharme y hacer mis dÃ­as mejores." },
+  { day: 10, type: "voucher", emoji: "ðŸŽ", title: "Una cita sorpresa", message: "Esta vez me encargo yo de organizarlo todo.", reward: "Una cita romÃ¡ntica sorpresa" },
+  { day: 11, type: "photo", emoji: "ðŸ“¸", title: "Un dÃ­a inolvidable", message: "Hay dÃ­as que me gustarÃ­a guardar para siempre.", image: "/memories/dia-11.jpg" },
+  { day: 12, type: "quiz", emoji: "ðŸŽ®", title: "Nuestro pequeÃ±o quiz", message: "Vamos con otra pregunta.", question: "Â¿QuÃ© es lo que mÃ¡s me gusta de nosotros?", options: ["Nuestras conversaciones", "Nuestros viajes", "Todos los momentos juntos"], correctAnswer: 2, reward: "Â¡Exactamente! â¤ï¸" },
+  { day: 13, type: "letter", emoji: "ðŸ’Œ", title: "Gracias por...", message: "Gracias por ser tÃº, por cada abrazo, por cada risa y por todos esos pequeÃ±os detalles que hacen nuestra relaciÃ³n especial." },
+  { day: 14, type: "photo", emoji: "ðŸ“¸", title: "Nuestro viaje favorito", message: "OjalÃ¡ nos queden muchÃ­simos destinos por descubrir.", image: "/memories/dia-14.jpg" },
+  { day: 15, type: "voucher", emoji: "ðŸŽ", title: "Hoy eliges tÃº", message: "Sin discusiones sobre quÃ© pelÃ­cula ver o dÃ³nde comer.", reward: "Un plan entero elegido por ti" },
+  { day: 16, type: "quiz", emoji: "ðŸŽ®", title: "Tres pistas", message: "Adivina de quÃ© momento estoy hablando.", question: "Â¿QuÃ© recuerdo nuestro fue una aventura inesperada?", options: ["Un viaje", "Una sorpresa", "Un plan improvisado"], correctAnswer: 2, reward: "Â¡Otro recuerdo para nuestra colecciÃ³n!" },
+  { day: 17, type: "letter", emoji: "ðŸ’Œ", title: "Nuestro futuro", message: "No sÃ© todas las aventuras que nos esperan, pero sÃ­ sÃ© que quiero seguir compartiendo muchÃ­simas contigo." },
+  { day: 18, type: "photo", emoji: "ðŸ“¸", title: "Mi foto favorita", message: "Una fotografÃ­a que siempre consigue sacarme una sonrisa.", image: "/memories/dia-18.jpg" },
+  { day: 19, type: "voucher", emoji: "ðŸŽ", title: "Una cena especial", message: "Una noche para disfrutar sin prisas.", reward: "Una cena romÃ¡ntica juntos" },
+  { day: 20, type: "quiz", emoji: "ðŸŽ®", title: "Â¿CuÃ¡nto sabes de nosotros?", message: "Ãšltimo juego del calendario.", question: "Â¿CuÃ¡l es nuestro mejor plan?", options: ["Viajar", "Quedarnos en casa", "Cualquier plan si estamos juntos"], correctAnswer: 2, reward: "Â¡Respuesta perfecta! â¤ï¸" },
+  { day: 21, type: "photo", emoji: "ðŸ“¸", title: "Nuestro momento divertido", message: "Porque contigo nunca faltan las risas.", image: "/memories/dia-21.jpg" },
+  { day: 22, type: "letter", emoji: "ðŸ’Œ", title: "Mi promesa para ti", message: "Prometo seguir cuidando de nosotros, buscando motivos para reÃ­r y construyendo recuerdos bonitos a tu lado." },
+  { day: 23, type: "voucher", emoji: "ðŸŽ", title: "Un regalo misterioso", message: "Este vale guarda una sorpresa que descubrirÃ¡s muy pronto.", reward: "Un regalo sorpresa" },
+  { day: 24, type: "special", emoji: "ðŸŽ„", title: "Feliz Navidad, mi amor â¤ï¸", message: "Llegamos al Ãºltimo dÃ­a, pero esto no termina aquÃ­. Gracias por formar parte de mi vida y por hacer que cada Navidad contigo sea especial. Te quiero muchÃ­simo." },
+];

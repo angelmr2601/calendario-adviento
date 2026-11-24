@@ -1,26 +1,964 @@
 @import "tailwindcss";
 
+/* =====================================================
+   TOKENS
+   Rojo acebo, verde pino, papel de estraza y luz cálida.
+   ===================================================== */
+
+@theme {
+  --color-pine: #123628;
+  --color-pine-deep: #0a2219;
+  --color-felt: #1d4e38;
+  --color-holly: #b5262e;
+  --color-holly-deep: #7d1820;
+  --color-holly-soft: #cf4a50;
+  --color-kraft: #d9bd8a;
+  --color-paper: #f8f1de;
+  --color-paper-deep: #efe2c0;
+  --color-ink: #2b2118;
+  --color-ink-soft: #5d4e3f;
+  --color-glow: #ffc65a;
+  --color-navy: #2f4f74;
+  --color-wood: #6a4429;
+
+  --font-display: "Caprasimo", Georgia, serif;
+  --font-serif: "Newsreader Variable", Georgia, serif;
+  --font-hand: "Caveat Variable", "Segoe Script", cursive;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Grano de fieltro / papel (SVG en línea, sin peticiones extra) */
+  --grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 -.14'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .15 0 0 0 0 .05 0 0 0 .38 -.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-pine-deep);
+}
+
+/* =====================================================
+   NOCHE DE NAVIDAD
+   ===================================================== */
+
+.noche {
+  font-family: var(--font-serif);
+  background:
+    radial-gradient(110% 38% at 50% 0%, rgba(255, 198, 90, 0.17), transparent 70%),
+    radial-gradient(90% 60% at 50% 115%, rgba(0, 0, 0, 0.5), transparent 70%),
+    linear-gradient(180deg, #0f3224 0%, #0a2219 100%);
+}
+
+/* Grano general: da textura de fieltro a todo el fondo */
+.noche::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: var(--grain-light);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.titulo {
+  font-family: var(--font-display);
+  color: var(--color-paper);
+  text-shadow: 0.045em 0.05em 0 var(--color-holly-deep);
+  letter-spacing: 0.005em;
+}
+
+/* =====================================================
+   TABLERO: marco de madera y fieltro verde
+   ===================================================== */
+
+.tablero {
+  position: relative;
+  padding: clamp(10px, 2.4vw, 18px);
+  border-radius: 14px;
+  background:
+    repeating-linear-gradient(
+      91deg,
+      rgba(0, 0, 0, 0.1) 0 2px,
+      transparent 2px 9px
+    ),
+    linear-gradient(180deg, #7a4f31, #5b3a22);
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.12) inset,
+    0 18px 40px -8px rgba(0, 0, 0, 0.65),
+    0 4px 0 #3f2615;
+}
+
+.tablero-fieltro {
+  position: relative;
+  padding: clamp(12px, 3vw, 26px);
+  border-radius: 6px;
+  background: var(--grain-light), var(--color-felt);
+  box-shadow:
+    inset 0 0 0 2px rgba(0, 0, 0, 0.35),
+    inset 0 10px 28px rgba(0, 0, 0, 0.5);
+}
+
+.clavo {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f0d089, #9a6c2c 70%);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* =====================================================
+   PUERTAS: parches de fieltro con solapa que se abre
+   .door-back = el interior encendido (siempre debajo)
+   .door-flap = la tapa de fieltro que gira sobre su bisagra
+   ===================================================== */
+
+.door {
+  --bg: #b5262e;
+  --fg: #fbe9c6;
+  --thread: rgba(251, 233, 198, 0.62);
+
+  position: relative;
+  display: block;
+  aspect-ratio: 5 / 6;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  perspective: 700px;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.22s ease;
+}
+
+.door[data-tone="1"] {
+  --bg: #2f6e4d;
+  --fg: #f6e3b0;
+  --thread: rgba(246, 227, 176, 0.55);
+}
+
+.door[data-tone="2"] {
+  --bg: #d9bd8a;
+  --fg: #8d1c24;
+  --thread: rgba(141, 28, 36, 0.5);
+}
+
+.door[data-tone="3"] {
+  --bg: #2f4f74;
+  --fg: #f4e8c8;
+  --thread: rgba(244, 232, 200, 0.5);
+}
+
+.door-back,
+.door-flap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 9px;
+}
+
+/* Interior: ventana encendida con el corazón */
+.door-back {
+  background: radial-gradient(
+    circle at 50% 58%,
+    #ffe6ab 0%,
+    #f4b05a 55%,
+    #cf7a24 100%
+  );
+  color: #7d1820;
+  box-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.3),
+    0 12px 14px -8px rgba(0, 0, 0, 0.6);
+  transition: box-shadow 0.22s ease;
+}
+
+.door-back::before,
+.door-flap::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1.6px dashed var(--thread);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.door-back::before {
+  --thread: rgba(125, 24, 32, 0.5);
+}
+
+.door-back::after,
+.door-flap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: var(--grain-light);
+  pointer-events: none;
+}
+
+.door-back::after {
+  opacity: 0.35;
+}
+
+.door-flap::after {
+  opacity: 0.6;
+}
+
+/* Tapa de fieltro: gira sobre el borde izquierdo */
+.door-flap {
+  inset: -0.5px;
+  background: var(--bg);
+  color: var(--fg);
+  transform-origin: left center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset;
+}
+
+/* Solo se anima mientras se abre; las ya abiertas aparecen abiertas sin moverse */
+.door[data-opening] .door-flap {
+  transition: transform 0.85s cubic-bezier(0.35, 0.05, 0.25, 1);
+  transform: rotateY(-104deg);
+}
+
+.door[data-state="viewed"] .door-flap {
+  transform: rotateY(-104deg);
+}
+
+.door[data-opening] .door-back {
+  animation: none;
+  box-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.3),
+    0 0 34px 8px rgba(255, 198, 90, 0.75);
+  transition: box-shadow 0.5s ease 0.2s;
+}
+
+.door-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 6.2vw, 2.55rem);
+  line-height: 1;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.22);
+}
+
+.door-back .door-num {
+  text-shadow: none;
+}
+
+.door-icon {
+  width: clamp(18px, 4.6vw, 24px);
+  height: clamp(18px, 4.6vw, 24px);
+  opacity: 0.92;
+}
+
+.door:not(:disabled):not([data-state="locked"]):hover,
+.door:not(:disabled):not([data-state="locked"]):focus-visible {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+.door:not(:disabled):not([data-state="locked"]):hover .door-back,
+.door:not(:disabled):not([data-state="locked"]):focus-visible .door-back {
+  box-shadow:
+    0 7px 0 rgba(0, 0, 0, 0.28),
+    0 18px 22px -8px rgba(0, 0, 0, 0.6);
+}
+
+.door:focus-visible {
+  outline: 3px solid var(--color-glow);
+  outline-offset: 3px;
+}
+
+/* Cerrada hasta su día: se puede tocar para saber cuándo se abre */
+.door[data-state="locked"] {
+  cursor: help;
+}
+
+.door[data-state="locked"] .door-flap {
+  filter: saturate(0.7) brightness(0.78);
+}
+
+/* La que acaba de abrirse hoy: hilo dorado y brillo lento */
+.door[data-state="new"]:not([data-opening]) .door-back {
+  animation: door-glow 2.8s ease-in-out infinite;
+}
+
+@keyframes door-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 3px 0 rgba(0, 0, 0, 0.3),
+      0 0 0 2px rgba(255, 198, 90, 0.75),
+      0 0 14px rgba(255, 198, 90, 0.3);
+  }
+
+  50% {
+    box-shadow:
+      0 3px 0 rgba(0, 0, 0, 0.3),
+      0 0 0 2px rgba(255, 198, 90, 1),
+      0 0 30px rgba(255, 198, 90, 0.6);
+  }
+}
+
+/* Sacudida suave al tocar una puerta cerrada */
+.door-nudge {
+  animation: door-nudge 0.45s ease-in-out;
+}
+
+@keyframes door-nudge {
+  0%,
+  100% {
+    transform: rotate(var(--tilt, 0deg));
+  }
+
+  25% {
+    transform: rotate(calc(var(--tilt, 0deg) - 3deg));
+  }
+
+  75% {
+    transform: rotate(calc(var(--tilt, 0deg) + 3deg));
+  }
+}
+
+/* Aviso al tocar una puerta cerrada */
+.door-notice {
+  animation: notice-in 0.3s ease-out both;
+}
+
+@keyframes notice-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   LUCES: se encienden de izquierda a derecha al cargar
+   ===================================================== */
+
+.light-bulb {
+  animation: bulb-on 0.45s ease-out both;
+  animation-delay: calc(var(--i) * 55ms + 400ms);
+}
+
+.light-glass {
+  filter: drop-shadow(0 0 4px var(--c));
+}
+
+.light-glow {
+  animation: bulb-breathe 4.2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 370ms + 3s);
+}
+
+@keyframes bulb-on {
+  from {
+    opacity: 0.12;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bulb-breathe {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* =====================================================
+   NIEVE
+   ===================================================== */
+
+.snowflake {
+  animation: snowfall linear infinite;
+  will-change: transform;
+}
+
+@keyframes snowfall {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(var(--drift, 30px), 112vh, 0);
+  }
+}
+
+/* =====================================================
+   PAPEL: tarjeta navideña para las sorpresas
+   ===================================================== */
+
+.papel {
+  position: relative;
+  background: var(--grain-dark), var(--color-paper);
+  border: 5px solid var(--color-holly);
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 2px rgba(0, 0, 0, 0.3),
+    0 30px 60px -10px rgba(0, 0, 0, 0.7);
+}
+
+.papel::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1.6px dashed rgba(181, 38, 46, 0.4);
+  border-radius: 7px;
+  pointer-events: none;
+}
+
+.surprise-modal {
+  animation: modal-appear 0.35s ease-out both;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Papel con renglones para la letra a mano */
+.renglones {
+  line-height: 2.15rem;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(2.15rem - 1.5px),
+    rgba(125, 24, 32, 0.17) calc(2.15rem - 1.5px),
+    rgba(125, 24, 32, 0.17) 2.15rem
+  );
+  background-attachment: local;
+}
+
+/* Cinta de washi a rayas de bastón de caramelo */
+.cinta {
+  position: absolute;
+  left: 50%;
+  top: -15px;
+  z-index: 5;
+  width: 96px;
+  height: 28px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(181, 38, 46, 0.85) 0 7px,
+    rgba(255, 255, 255, 0.72) 7px 14px
+  );
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  clip-path: polygon(
+    3% 0, 97% 0, 100% 15%, 97% 30%, 100% 50%, 97% 70%, 100% 85%, 97% 100%,
+    3% 100%, 0 85%, 3% 70%, 0 50%, 3% 30%, 0 15%
+  );
+}
+
+/* =====================================================
+   REGALO ANIMADO
+   ===================================================== */
+
+.gift-container {
+  animation: gift-float 1.5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.gift-container.gift-opening {
+  animation: gift-shake 0.55s ease-in-out forwards;
+}
+
+.gift-lid {
+  transform-origin: center center;
+}
+
+.gift-opening .gift-lid {
+  animation: gift-lid-open 1.3s ease-out 0.45s forwards;
+}
+
+.gift-opening .gift-box {
+  animation: gift-box-disappear 0.85s ease-in 1.1s forwards;
+}
+
+@keyframes gift-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes gift-shake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  20%,
+  60% {
+    transform: rotate(-5deg);
+  }
+
+  40%,
+  80% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes gift-lid-open {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+
+  45% {
+    transform: translateY(-55px) rotate(-10deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-190px) rotate(-25deg);
+    opacity: 0;
+  }
+}
+
+@keyframes gift-box-disappear {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(90px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.gift-light {
+  transform: translate(-50%, -50%) scale(0.2);
+  opacity: 0;
+}
+
+.gift-opening .gift-light {
+  animation: gift-glow 1.2s ease-out 0.85s both;
+}
+
+@keyframes gift-glow {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+
+  35% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(2.5);
+  }
+
+  65% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(4);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(6);
+  }
+}
+
+.gift-opening .gift-particle {
+  animation: gift-particle-burst 1.1s ease-out both;
+}
+
+@keyframes gift-particle-burst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty)))
+      scale(0.5);
+  }
+}
+
+/* =====================================================
+   POLAROID
+   ===================================================== */
+
+.polaroid-scene {
+  perspective: 1200px;
+}
+
+.polaroid-button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.polaroid-card {
+  transform-style: preserve-3d;
+  transform: rotateY(0deg) rotate(-3deg);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.polaroid-card.is-flipped {
+  transform: rotateY(180deg) rotate(2deg);
+}
+
+/* overflow visible para que la cinta sobresalga del borde */
+.polaroid-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.polaroid-back {
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.polaroid-front {
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+
+.polaroid-button:hover .polaroid-card:not(.is-flipped) {
+  transform: rotateY(0deg) rotate(-1deg) translateY(-5px);
+}
+
+.polaroid-button:hover .polaroid-card.is-flipped {
+  transform: rotateY(180deg) rotate(0deg) translateY(-5px);
+}
+
+.polaroid-message.is-visible {
+  animation: polaroid-message-appear 0.7s ease-out both;
+  animation-delay: 0.35s;
+}
+
+@keyframes polaroid-message-appear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   QUIZ
+   ===================================================== */
+
+.quiz-heart {
+  animation: quiz-heart-float 2.5s ease-in-out infinite;
+}
+
+@keyframes quiz-heart-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-7px) scale(1.07);
+  }
+}
+
+.quiz-answer-wrong {
+  animation: quiz-wrong-shake 0.4s ease-in-out;
+}
+
+@keyframes quiz-wrong-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20%,
+  60% {
+    transform: translateX(-7px);
+  }
+
+  40%,
+  80% {
+    transform: translateX(7px);
+  }
+}
+
+.quiz-feedback {
+  animation: quiz-feedback-appear 0.35s ease-out both;
+}
+
+@keyframes quiz-feedback-appear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quiz-success {
+  animation: quiz-success-appear 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+@keyframes quiz-success-appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.quiz-confetti-piece {
+  position: absolute;
+  top: -15px;
+  width: 9px;
+  height: 15px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: quiz-confetti-fall 2.8s ease-in both;
+}
+
+@keyframes quiz-confetti-fall {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) rotate(0deg);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(560px) translateX(45px) rotate(var(--rotation));
+  }
+}
+
+/* =====================================================
+   VALES
+   ===================================================== */
+
+.voucher-hidden {
+  animation: voucher-float 2.5s ease-in-out infinite;
+}
+
+@keyframes voucher-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.voucher-reveal {
+  animation: voucher-appear 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes voucher-appear {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.85) rotate(-5deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+.voucher-stamp {
+  animation: voucher-stamp-appear 0.55s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+  animation-delay: 0.3s;
+}
+
+@keyframes voucher-stamp-appear {
+  from {
+    opacity: 0;
+    transform: rotate(-12deg) scale(2);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(-12deg) scale(1);
+  }
+}
+
+/* =====================================================
+   SORPRESAS ESPECIALES
+   ===================================================== */
+
+.special-mystery {
+  animation: special-float 2.8s ease-in-out infinite;
+}
+
+@keyframes special-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+.special-revealed {
+  animation: special-reveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes special-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.special-main-emoji {
+  animation: special-heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes special-heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+.special-sparkle {
+  display: block;
+  opacity: 0;
+  animation: special-sparkle-burst 1.7s ease-out both;
+}
+
+@keyframes special-sparkle-burst {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3);
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--spark-x), var(--spark-y)) scale(0.6);
+  }
+}
+
+.special-finale {
+  animation: special-finale-appear 0.7s ease-out 0.4s both;
+}
+
+@keyframes special-finale-appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   ACCESIBILIDAD: sin movimiento si se pide
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .snowflake,
+  .door,
+  .light-bulb,
+  .light-glow,
+  .surprise-modal,
+  .gift-container,
+  .gift-container.gift-opening,
+  .gift-opening .gift-lid,
+  .gift-opening .gift-box,
+  .gift-opening .gift-light,
+  .gift-opening .gift-particle,
+  .polaroid-message.is-visible,
+  .quiz-heart,
+  .quiz-answer-wrong,
+  .quiz-feedback,
+  .quiz-success,
+  .quiz-confetti-piece,
+  .voucher-hidden,
+  .voucher-reveal,
+  .voucher-stamp,
+  .special-mystery,
+  .special-revealed,
+  .special-main-emoji,
+  .special-sparkle,
+  .special-finale {
+    animation: none !important;
+  }
+
+  .polaroid-card,
+  .door {
+    transition: none !important;
+  }
+
+  .special-sparkle {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .door-flap,
+  .door-back {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .door-notice {
+    animation: none !important;
+  }
 }

@@ -1,0 +1,22 @@
+EDITOR LOCAL DEL CALENDARIO DE ADVIENTO
+
+1. Descomprime el ZIP en cualquier carpeta de tu PC.
+2. Abre PowerShell EN LA RAIZ DEL PROYECTO Next.js (donde está package.json).
+3. Ejecuta:
+   powershell -NoProfile -ExecutionPolicy Bypass -File "RUTA_AL_EDITOR\instalar-editor.ps1"
+4. Ejecuta npm run dev
+5. Abre http://localhost:3000/admin
+
+No requiere Supabase ni instala dependencias adicionales.
+
+Se respeta page.tsx, GiftReveal.tsx y globals.css. El archivo surprises.ts ahora lee los datos del surprises.json.
+El instalador hace copias de seguridad de lo que sobrescribe.
+
+IMPORTANTE:
+- Este panel es local y se desactiva en producción (NODE_ENV != development).
+- No lo ejecutes con un servidor de desarrollo público o expuesto a Internet.
+- Los cambios en JSON se reflejan en Next.js; si no aparecen, reinicia npm run dev.
+- El contenido de todas las sorpresas sigue incluido en el JavaScript del calendario público.
+  Antes de compartir el sitio hace falta mover la lectura a una API con comprobación de fecha.
+- Las fotos guardadas en public/memories tienen una URL pública y no son secretas.
+- Publicar cambios a Vercel requiere un nuevo despliegue; Vercel no persiste escrituras locales.
